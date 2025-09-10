@@ -1,0 +1,21 @@
+:root {
+  --bg: #131313;
+  --main_bg: #2e2e2e;
+  --header_bg: linear-gradient(135deg, #2e2e2e, #1a1a1a);
+  --results_bg: #414141;
+  --extra_formula_bg: #1b1b1bf7;
+
+  --text: #cccccc;
+  --borders: #2e2e2e;
+}
+
+body.light {
+  --bg: #f9f9f9;
+  --main_bg: #ffffff;
+  --header_bg: linear-gradient(135deg, #ffffff, #eaeaea);
+  --results_bg: #f5f5f5;
+  --extra_formula_bg: #ffffffcc;
+
+  --text: #111111;
+  --borders: #dddddd;
+}

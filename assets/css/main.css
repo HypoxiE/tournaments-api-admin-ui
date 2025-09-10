@@ -1,0 +1,38 @@
+@import url("cards/main_info.css");
+@import url("cards/add_info.css");
+@import url("settings.css");
+@import url("colors.css");
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+header {
+  position: relative;
+	background-color: var(--header_bg);
+  background: var(--header_bg);
+	padding: 15px;
+	text-align: center;
+}
+#leaderboard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.result-block {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid var(--borders);
+  border-radius: 5px;
+  background-color: var(--results_bg);
+}
+
+.error-block {
+  color: rgb(250, 250, 250);
+}

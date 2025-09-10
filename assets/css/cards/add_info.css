@@ -1,0 +1,21 @@
+/*Начало. Блок с дополнительной информацией*/
+.result-comment-block{
+  color: var(--text);
+  overflow-y: auto;
+  width: 95%; resize:none;
+  flex: 1;
+  padding: 0px 12px;
+  border: 1px solid var(--borders);
+  border-radius: 12px;
+  background-color: var(--results_bg);
+  line-height: 2em;
+
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+textarea::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+/*Конец. Блок с дополнительной информацией*/
