@@ -2,31 +2,33 @@ export async function Init() {
 	sessionStorage.setItem("toSendData", JSON.stringify({result: [], metric: [], metadata: []}));
 }
 
-export async function AddResultData(result_id, key, value) {
+export function AddData(type, obj_id, value, key = "value") {
 	const savedData = JSON.parse(sessionStorage.getItem("toSendData"));
 
 	let found = false;
-	savedData.result.forEach(result => {
-		if (result.result_id == result_id) {
-			result[key] = value;
+	let id_key = type + "_id";
+	savedData[type].forEach(obj => {
+		if (obj[id_key] == obj_id) {
+			obj[key] = value;
 			found = true;
 		}
 	});
 	if (!found) {
-		savedData.result.push({"result_id": result_id, [key]: value});
+		savedData[type].push({[id_key]: obj_id, [key]: value});
 	}
 
 	sessionStorage.setItem("toSendData", JSON.stringify(savedData));
 }
 
-export async function RemoveResultData(result_id, key) {
+export function RemoveData(type, obj_id, key = "value") {
 	const savedData = JSON.parse(sessionStorage.getItem("toSendData"));
 
-	savedData.result.forEach((result, index) => {
-		if (result.result_id == result_id) {
-			delete result[key];
-			if (Object.keys(result).length === 1) {
-				savedData.result.splice(index, 1);
+	let id_key = type + "_id";
+	savedData[type].forEach((obj, index) => {
+		if (obj[id_key] == obj_id) {
+			delete obj[key];
+			if (Object.keys(obj).length === 1) {
+				savedData[type].splice(index, 1);
 			}
 		}
 	});
