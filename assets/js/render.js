@@ -12,14 +12,6 @@ export async function drawTable(tournament) {
 
 	tournament.results.forEach(result => {
 
-		let metadata = {};
-		result.metadata.forEach(data => {
-			metadata[data.key] = {
-				"value": data.value,
-				"metadata_id": data.metadata_id
-			};
-		});
-
 		const block = document.createElement("div");
 		block.className = "result-block";
 
@@ -193,24 +185,73 @@ export async function drawTable(tournament) {
 		confident_info.appendChild(confident_container)
 		info.appendChild(confident_info)
 
+		const metadata_container = document.createElement("div")
+		const translation_meta = {"comment": "Комментарий", "streams": "Стримы"}
+		result.metadata.forEach(data => {
+			const metadata_lable = document.createElement("lable");
+			metadata_lable.for = data.key + data.metadata_id;
+			const lable = translation_meta[data.key] || data.key;
+			metadata_lable.innerHTML = lable + ": <br>";
+			metadata_container.appendChild(metadata_lable)
 
-		const comment = document.createElement("textarea");
-		comment.classList.add("result-comment-block");
-		comment.spellcheck = false;
-		comment.innerHTML = metadata.comment.value;
-		comment.placeholder = metadata.comment.value;
+			const metadata = document.createElement("textarea");
+			metadata.classList.add("result-metadata-block");
+			metadata.id = data.key + data.metadata_id
+			metadata.spellcheck = false;
+			metadata.innerHTML = data.value;
+			metadata.placeholder = data.value
+			metadata.addEventListener("change", () => {
+				if (metadata.value == metadata.placeholder){
+					RemoveData("metadata", data.metadata_id);
+				} else if (metadata.value === "") {
+					metadata.value = metadata.placeholder
+					RemoveData("metadata", data.metadata_id);
+				} else {
+					AddData("metadata", data.metadata_id, metadata.value);
+				}
+			});
+			metadata_container.appendChild(metadata)
+			metadata_container.appendChild(document.createElement("br"))
+		});
 
-		comment.addEventListener("change", () => {
-			if (comment.value != cost.placeholder){
-				AddData("metadata", metadata.comment.metadata_id, comment.value);
-			} else {
-				RemoveData("metadata", metadata.comment.metadata_id);
-			}
+		const metric_container = document.createElement("div")
+		const translation_metric = {
+			"humans": "Людей", 
+			"animals": "Животных",
+			"mechanoids": "Маханоидов"
+		}
+		result.metrics.forEach(data => {
+			const metric_lable = document.createElement("lable");
+			metric_lable.for = data.key + data.metric_id;
+			const lable = translation_metric[data.key] || data.key;
+			metric_lable.innerHTML = lable + ": <br>";
+			metric_container.appendChild(metric_lable)
+
+			const metric = document.createElement("input");
+			metric.type = "numbers";
+			metric.classList.add("result-metric-block");
+			metric.id = data.key + data.metric_id
+			metric.spellcheck = false;
+			metric.value = data.value;
+			metric.placeholder = data.value;
+			metric.addEventListener("change", () => {
+				if (metric.value == metric.placeholder){
+					RemoveData("metrics", data.metric_id);
+				} else if (metric.value === "") {
+					metric.value = metric.placeholder
+					RemoveData("metrics", data.metric_id);
+				} else {
+					AddData("metrics", data.metric_id, parseInt(metric.value, 10));
+				}
+			});
+			metric_container.appendChild(metric)
+			metric_container.appendChild(document.createElement("br"))
 		});
 
 		block.appendChild(avatar);
 		block.appendChild(info);
-		block.appendChild(comment);
+		block.appendChild(metadata_container);
+		block.appendChild(metric_container);
 		container.appendChild(block);
 	});
 

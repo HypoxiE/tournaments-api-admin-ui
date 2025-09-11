@@ -1,5 +1,5 @@
 export async function Init() {
-	sessionStorage.setItem("toSendData", JSON.stringify({result: [], metric: [], metadata: []}));
+	sessionStorage.setItem("toSendData", JSON.stringify({result: [], metrics: [], metadata: []}));
 }
 
 export function AddData(type, obj_id, value, key = "value") {

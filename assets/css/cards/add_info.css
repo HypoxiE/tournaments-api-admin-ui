@@ -1,9 +1,6 @@
-/*Начало. Блок с дополнительной информацией*/
-.result-comment-block{
+/*Начало. Блок с метадатой*/
+.result-metadata-block{
   color: var(--text);
-  overflow-y: auto;
-  width: 95%; resize:none;
-  flex: 1;
   padding: 0px 12px;
   border: 1px solid var(--borders);
   border-radius: 12px;
@@ -29,4 +26,4 @@ textarea::-webkit-scrollbar {
   width: 0px;
   background: transparent;
 }
-/*Конец. Блок с дополнительной информацией*/
+/*Конец. Блок с метадатой*/
