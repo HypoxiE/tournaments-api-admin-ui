@@ -22,9 +22,12 @@ export async function AddResultData(result_id, key, value) {
 export async function RemoveResultData(result_id, key) {
 	const savedData = JSON.parse(sessionStorage.getItem("toSendData"));
 
-	savedData.result.forEach(result => {
+	savedData.result.forEach((result, index) => {
 		if (result.result_id == result_id) {
 			delete result[key];
+			if (Object.keys(result).length === 1) {
+				savedData.result.splice(index, 1);
+			}
 		}
 	});
 
