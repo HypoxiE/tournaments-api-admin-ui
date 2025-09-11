@@ -1,0 +1,33 @@
+
+.site-title {
+	margin: 0;
+	font-size: 20px;
+}
+
+#save-button {
+	left: 20px;
+	top: 2px;
+	position: absolute;
+	background: var(--bg);
+	color: white;
+	font-size: 14px;
+	font-weight: bold;
+	border: none;
+	border-radius: 8px;
+	padding: 8px 16px;
+	cursor: pointer;
+	transition: background 0.2s ease, transform 0.1s ease;
+}
+
+#save-button:hover {
+  	background: var(--text);
+}
+
+#save-button:active {
+  	transform: scale(0.95);
+}
+
+#save-button:disabled {
+	background: #999;
+	cursor: not-allowed;
+}

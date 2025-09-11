@@ -36,9 +36,9 @@ export async function drawTable(tournament) {
 		username.placeholder = result.username;
 		username.addEventListener("change", () => {
 			if (username.value != username.placeholder){
-				AddData("result", result.result_id, username.value, "username");
+				AddData("results", result.result_id, username.value, "username");
 			} else {
-				RemoveData("result", result.result_id, "username");
+				RemoveData("results", result.result_id, "username");
 			}
 		});
 		info.appendChild(username);
@@ -59,9 +59,9 @@ export async function drawTable(tournament) {
 		penalty.placeholder = result.penalty;
 		penalty.addEventListener("change", () => {
 			if (penalty.value != penalty.placeholder){
-				AddData("result", result.result_id, parseInt(penalty.value, 10), "penalty");
+				AddData("results", result.result_id, parseInt(penalty.value, 10), "penalty");
 			} else {
-				RemoveData("result", result.result_id, "penalty");
+				RemoveData("results", result.result_id, "penalty");
 			}
 		});
 		penalty_container.appendChild(penalty);
@@ -77,9 +77,9 @@ export async function drawTable(tournament) {
 		cost.placeholder = result.cost;
 		cost.addEventListener("change", () => {
 			if (cost.value != cost.placeholder){
-				AddData("result", result.result_id, parseInt(cost.value, 10), "cost");
+				AddData("results", result.result_id, parseInt(cost.value, 10), "cost");
 			} else {
-				RemoveData("result", result.result_id, "cost");
+				RemoveData("results", result.result_id, "cost");
 			}
 		});
 		cost_container.appendChild(cost);
@@ -108,9 +108,9 @@ export async function drawTable(tournament) {
 		status_select.placeholder = result.status
 		status_select.addEventListener("change", () => {
 			if (status_select.value != status_select.placeholder){
-				AddData("result", result.result_id, parseInt(status_select.value, 10), "status");
+				AddData("results", result.result_id, parseInt(status_select.value, 10), "status");
 			} else {
-				RemoveData("result", result.result_id, "status");
+				RemoveData("results", result.result_id, "status");
 			}
 		});
 		info.appendChild(status_select);
@@ -134,9 +134,9 @@ export async function drawTable(tournament) {
 		steamid.placeholder = result.steam_id;
 		steamid.addEventListener("change", () => {
 			if (steamid.value != steamid.placeholder){
-				AddData("result", result.result_id, steamid.value, "steam_id");
+				AddData("results", result.result_id, steamid.value, "steam_id");
 			} else {
-				RemoveData("result", result.result_id, "steam_id");
+				RemoveData("results", result.result_id, "steam_id");
 			}
 		});
 		steamid_container.appendChild(steamid)
@@ -154,9 +154,9 @@ export async function drawTable(tournament) {
 		mail.placeholder = result.mail;
 		mail.addEventListener("change", () => {
 			if (mail.value != mail.placeholder){
-				AddData("result", result.result_id, mail.value, "mail");
+				AddData("results", result.result_id, mail.value, "mail");
 			} else {
-				RemoveData("result", result.result_id, "mail");
+				RemoveData("results", result.result_id, "mail");
 			}
 		});
 		mail_container.appendChild(mail)
@@ -175,9 +175,9 @@ export async function drawTable(tournament) {
 		ip.placeholder = result.ip;
 		ip.addEventListener("change", () => {
 			if (ip.value != ip.placeholder){
-				AddData("result", result.result_id, ip.value, "ip");
+				AddData("results", result.result_id, ip.value, "ip");
 			} else {
-				RemoveData("result", result.result_id, "ip");
+				RemoveData("results", result.result_id, "ip");
 			}
 		});
 		ip_container.appendChild(ip)

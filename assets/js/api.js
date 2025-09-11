@@ -1,27 +1,27 @@
 function cacheDataSession(key, data, ttl) {
-  const cacheEntry = {
-    timestamp: Date.now(),
-    ttl: ttl,
-    data: data
-  };
-  sessionStorage.setItem(key, JSON.stringify(cacheEntry));
+	const cacheEntry = {
+		timestamp: Date.now(),
+		ttl: ttl,
+		data: data
+	};
+	sessionStorage.setItem(key, JSON.stringify(cacheEntry));
 }
 
 // Получаем данные из sessionStorage, если ещё актуальны
 function getCachedDataSession(key) {
-  const item = sessionStorage.getItem(key);
-  if (!item) return null;
+	const item = sessionStorage.getItem(key);
+	if (!item) return null;
 
-  const cacheEntry = JSON.parse(item);
-  const now = Date.now();
+	const cacheEntry = JSON.parse(item);
+	const now = Date.now();
 
-  if (now - cacheEntry.timestamp > cacheEntry.ttl) {
-    // устарело → удаляем
-    sessionStorage.removeItem(key);
-    return null;
-  }
+	if (now - cacheEntry.timestamp > cacheEntry.ttl) {
+		// устарело → удаляем
+		sessionStorage.removeItem(key);
+		return null;
+	}
 
-  return cacheEntry.data;
+	return cacheEntry.data;
 }
 
 export async function getResults() {
@@ -40,4 +40,22 @@ export async function getResults() {
 	//cacheDataSession(cacheKey, data, cacheTTL);
 
 	return data
+}
+
+export async function sendData() {
+  	const savedData = JSON.parse(sessionStorage.getItem("toSendData"));
+	fetch("http://localhost:9090/admin/update_result", {
+		method: "POST",           // метод
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(savedData)
+	})
+	.then(response => response.json())
+	.then(result => {
+		console.log("Успех:", result);
+	})
+	.catch(error => {
+		console.error("Ошибка:", error);
+	});
 }

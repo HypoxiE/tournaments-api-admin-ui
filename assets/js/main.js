@@ -1,4 +1,4 @@
-import { getResults } from './api.js'
+import { getResults, sendData } from './api.js'
 import { drawTable, cutResults } from './render.js';
 import { newError } from './funcs.js';
 import { Init } from './format_data.js';
@@ -27,6 +27,18 @@ async function main() {
 
 	let readyTournamentData = tournament;
 	await drawTable(readyTournamentData);
+
+	const save_button = document.getElementById("save-button");
+	save_button.addEventListener("click",async () => {
+		try {
+			await sendData();
+			setTimeout(async () => {
+				await main();
+			}, 500);
+		} catch (err) {
+			console.error("Ошибка:", err);
+		}
+	});
 }
 
 main()
