@@ -17,15 +17,40 @@
   display: flex;
   flex-direction: column;
   min-width: 100px;
+  gap: 5px;
 }
 .username {
 	font-weight: bold;
   font-size: larger;
 }
-/*.score {
-  
-}
-.cost {
-
-}*/
 /*Конец. Блок с главной информацией*/
+
+/*Начало. Блок с inputbox и т.п.*/
+input:focus {
+  outline: none;
+  background-color: var(--borders);
+}
+
+input {
+  background-color: var(--results_bg);
+  color: var(--text);
+  width: auto;
+
+  transition: background-color 0.5s;
+}
+input[class="username"] {
+  width: 50%;
+}
+input[class="penalty"] {
+  width: 25px;
+}
+input[class="cost"] {
+  width: 60px;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/*Конец. Блок с inputbox и т.п.*/

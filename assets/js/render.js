@@ -40,6 +40,7 @@ export async function drawTable(tournament) {
 		// Генерация содержимого блока
 		const username = document.createElement("input");
 		username.type = "text";
+		username.spellcheck = false;
 		username.classList.add("username");
 		username.value = result.username;
 		username.placeholder = result.username;
@@ -62,12 +63,13 @@ export async function drawTable(tournament) {
 		penalty_container.classList.add("penalty");
 		penalty_container.innerHTML = "Штраф: ";
 		const penalty = document.createElement("input");
-		penalty.type = "text";
+		penalty.classList.add("penalty");
+		penalty.type = "number";
 		penalty.value = result.penalty;
 		penalty.placeholder = result.penalty;
 		penalty.addEventListener("change", () => {
 			if (penalty.value != penalty.placeholder){
-				AddResultData(result.result_id, "penalty", penalty.value);
+				AddResultData(result.result_id, "penalty", parseInt(penalty.value, 10));
 			} else {
 				RemoveResultData(result.result_id, "penalty")
 			}
@@ -79,12 +81,13 @@ export async function drawTable(tournament) {
 		cost_container.classList.add("cost");
 		cost_container.innerHTML = "Стоимость: ";
 		const cost = document.createElement("input");
-		cost.type = "text";
+		cost.classList.add("cost");
+		cost.type = "number";
 		cost.value = result.cost;
 		cost.placeholder = result.cost;
 		cost.addEventListener("change", () => {
 			if (cost.value != cost.placeholder){
-				AddResultData(result.result_id, "cost", cost.value);
+				AddResultData(result.result_id, "cost", parseInt(cost.value, 10));
 			} else {
 				RemoveResultData(result.result_id, "cost")
 			}
@@ -94,6 +97,7 @@ export async function drawTable(tournament) {
 
 		const comment = document.createElement("textarea");
 		comment.classList.add("result-comment-block");
+		comment.spellcheck = false;
 		comment.innerHTML = comment_content;
 		comment.placeholder = comment_content;
 
