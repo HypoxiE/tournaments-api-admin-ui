@@ -29,7 +29,7 @@
 textarea[class="mail"] {
   color: var(--text);
   overflow-y: auto;
-  width: 95%;
+  width: 80%;
   resize:none;
   flex: 1;
   padding: 0px 12px;
@@ -41,21 +41,26 @@ textarea[class="mail"] {
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
 }
+input[class="ip"] {
+  width: 110px;
+}
 details {
-  position: relative;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  transition: background-color 0.5s ease;
+}
+details[open] {
+  background-color: var(--main_bg);
 }
 
 .confident-content {
   padding: 2px;
 }
 
-/* По умолчанию скрываем */
-details:not([open]) details {
-  display: none;
-}
-
 summary {
+  width: 300px;
   text-align: center;
 	cursor: pointer;
 	display: block;
