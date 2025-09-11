@@ -123,6 +123,77 @@ export async function drawTable(tournament) {
 		});
 		info.appendChild(status_select);
 
+		const confident_info = document.createElement("details");
+		const confident_lable = document.createElement("summary");
+		confident_lable.classList.add("confident-info");
+		confident_lable.innerHTML = "Конфиденциально";
+		confident_info.appendChild(confident_lable);
+		const confident_container = document.createElement("div");
+		confident_container.classList.add("confident-content");
+
+		const steamid_container = document.createElement("span");
+		steamid_container.classList.add("steamid");
+		steamid_container.innerHTML = "Steam ID: "
+		const steamid = document.createElement("input");
+		steamid.classList.add("steamid");
+		steamid.type = "text";
+		steamid.spellcheck = false;
+		steamid.value = result.steam_id;
+		steamid.placeholder = result.steam_id;
+		steamid.addEventListener("change", () => {
+			if (steamid.value != steamid.placeholder){
+				AddData("result", result.result_id, steamid.value, "steam_id");
+			} else {
+				RemoveData("result", result.result_id, "steam_id");
+			}
+		});
+		steamid_container.appendChild(steamid)
+		confident_container.appendChild(steamid_container)
+
+		confident_container.appendChild(document.createElement("br"));
+
+		const mail_container = document.createElement("span");
+		mail_container.classList.add("mail");
+		mail_container.innerHTML = "Способы связи:<br>"
+		const mail = document.createElement("textarea");
+		mail.classList.add("mail");
+		mail.spellcheck = false;
+		mail.value = result.mail;
+		mail.placeholder = result.mail;
+		mail.addEventListener("change", () => {
+			if (mail.value != mail.placeholder){
+				AddData("result", result.result_id, mail.value, "mail");
+			} else {
+				RemoveData("result", result.result_id, "mail");
+			}
+		});
+		mail_container.appendChild(mail)
+		confident_container.appendChild(mail_container)
+
+		confident_container.appendChild(document.createElement("br"));
+
+		const ip_container = document.createElement("span");
+		ip_container.classList.add("ip");
+		ip_container.innerHTML = "IP: "
+		const ip = document.createElement("input");
+		ip.classList.add("ip");
+		ip.type = "text";
+		ip.spellcheck = false;
+		ip.value = result.ip;
+		ip.placeholder = result.ip;
+		ip.addEventListener("change", () => {
+			if (ip.value != ip.placeholder){
+				AddData("result", result.result_id, ip.value, "ip");
+			} else {
+				RemoveData("result", result.result_id, "ip");
+			}
+		});
+		ip_container.appendChild(ip)
+		confident_container.appendChild(ip_container)
+		confident_info.appendChild(confident_container)
+		info.appendChild(confident_info)
+
+
 		const comment = document.createElement("textarea");
 		comment.classList.add("result-comment-block");
 		comment.spellcheck = false;
@@ -144,7 +215,7 @@ export async function drawTable(tournament) {
 	});
 
 	} catch (err) {
-	console.error("Ошибка:", err);
+		console.error("Ошибка:", err);
 	}
 }
 

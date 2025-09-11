@@ -25,6 +25,58 @@
 }
 /*Конец. Блок с главной информацией*/
 
+/*Начало. Блок с секретной информацией*/
+textarea[class="mail"] {
+  color: var(--text);
+  overflow-y: auto;
+  width: 95%;
+  resize:none;
+  flex: 1;
+  padding: 0px 12px;
+  border: 1px solid var(--borders);
+  border-radius: 12px;
+  background-color: var(--results_bg);
+  line-height: 2em;
+
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+details {
+  position: relative;
+  display: inline-block;
+}
+
+.confident-content {
+  padding: 2px;
+}
+
+/* По умолчанию скрываем */
+details:not([open]) details {
+  display: none;
+}
+
+summary {
+  text-align: center;
+	cursor: pointer;
+	display: block;
+	position: relative;
+  border: 1px solid var(--borders);
+  border-radius: 12px;
+  padding: 2px;
+
+  transition: background-color 0.1s;
+}
+summary::-webkit-details-marker {
+	display: none;
+}
+summary::marker {
+	content: "";
+}
+summary:active {
+  background-color: var(--borders);
+}
+/*Конец. Блок с секретной информацией*/
+
 /*Начало. Блок с inputbox*/
 input:focus {
   outline: none;
@@ -35,7 +87,7 @@ input {
   background-color: var(--results_bg);
   color: var(--text);
   width: auto;
-  border: 2px solid var(--borders);
+  border: 1px solid var(--borders);
   border-radius: 12px;
 
   transition: background-color 0.5s;
@@ -62,15 +114,17 @@ select {
   text-align: center;
   background-color: var(--results_bg);
   color: var(--text);
-  border: 2px solid var(--borders);
+  border: 1px solid var(--borders);
   border-radius: 12px;
   padding: 2px;
   appearance: none;
   
-  transition: background-color 0.5s;
+  transition: background-color 0.1s;
 }
-select:focus-visible {
+select:focus {
   outline: none;
+}
+select:active {
   background-color: var(--borders);
 }
 option{
@@ -78,7 +132,7 @@ option{
   background-color: var(--results_bg);
   color: var(--text);
 }
-option:hover {
+option:active  {
   background-color: var(--borders);
 }
 /*Конец. Блок с select*/

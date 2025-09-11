@@ -5,7 +5,7 @@
   width: 95%; resize:none;
   flex: 1;
   padding: 0px 12px;
-  border: 2px solid var(--borders);
+  border: 1px solid var(--borders);
   border-radius: 12px;
   background-color: var(--results_bg);
   line-height: 2em;
