@@ -1,12 +1,17 @@
 export async function Init() {
 	sessionStorage.setItem("toSendData", JSON.stringify({results: [], metrics: [], metadata: [], tournaments: []}));
 }
-
+const general_keys = {
+	"results": "result_id",
+	"metrics": "metric_id",
+	"metadata": "metadata_id",
+	"tournaments": "tournament_id"
+}
 export function AddData(type, obj_id, value, key = "value") {
 	const savedData = JSON.parse(sessionStorage.getItem("toSendData"));
 
 	let found = false;
-	let id_key = type + "_id";
+	let id_key = general_keys[type];
 	savedData[type].forEach(obj => {
 		if (obj[id_key] == obj_id) {
 			obj[key] = value;
@@ -23,7 +28,7 @@ export function AddData(type, obj_id, value, key = "value") {
 export function RemoveData(type, obj_id, key = "value") {
 	const savedData = JSON.parse(sessionStorage.getItem("toSendData"));
 
-	let id_key = type + "_id";
+	let id_key = general_keys[type];
 	savedData[type].forEach((obj, index) => {
 		if (obj[id_key] == obj_id) {
 			delete obj[key];

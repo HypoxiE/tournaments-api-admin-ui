@@ -44,6 +44,7 @@ export async function getResults() {
 
 export async function sendData() {
   	const savedData = JSON.parse(sessionStorage.getItem("toSendData"));
+	console.log(JSON.stringify(savedData))
 	fetch("http://localhost:9090/admin/update_result", {
 		method: "POST",           // метод
 		headers: {

@@ -27,18 +27,18 @@ async function main() {
 
 	let readyTournamentData = tournament;
 	await drawTable(readyTournamentData);
-
-	const save_button = document.getElementById("save-button");
-	save_button.addEventListener("click",async () => {
-		try {
-			await sendData();
-			setTimeout(async () => {
-				await main();
-			}, 500);
-		} catch (err) {
-			console.error("Ошибка:", err);
-		}
-	});
 }
 
 main()
+
+const save_button = document.getElementById("save-button");
+save_button.addEventListener("click",async () => {
+	try {
+		await sendData();
+		setTimeout(async () => {
+			await main();
+		}, 500);
+	} catch (err) {
+		console.error("Ошибка:", err);
+	}
+});
