@@ -25,7 +25,7 @@
 }
 /*Конец. Блок с главной информацией*/
 
-/*Начало. Блок с inputbox и т.п.*/
+/*Начало. Блок с inputbox*/
 input:focus {
   outline: none;
   background-color: var(--borders);
@@ -35,6 +35,8 @@ input {
   background-color: var(--results_bg);
   color: var(--text);
   width: auto;
+  border: 2px solid var(--borders);
+  border-radius: 12px;
 
   transition: background-color 0.5s;
 }
@@ -53,4 +55,30 @@ input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-/*Конец. Блок с inputbox и т.п.*/
+/*Конец. Блок с inputbox*/
+
+/*Начало. Блок с select*/
+select {
+  text-align: center;
+  background-color: var(--results_bg);
+  color: var(--text);
+  border: 2px solid var(--borders);
+  border-radius: 12px;
+  padding: 2px;
+  appearance: none;
+  
+  transition: background-color 0.5s;
+}
+select:focus-visible {
+  outline: none;
+  background-color: var(--borders);
+}
+option{
+  padding: 2px;
+  background-color: var(--results_bg);
+  color: var(--text);
+}
+option:hover {
+  background-color: var(--borders);
+}
+/*Конец. Блок с select*/

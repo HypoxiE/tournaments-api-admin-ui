@@ -93,6 +93,36 @@ export async function drawTable(tournament) {
 		cost_container.appendChild(cost);
 		info.appendChild(cost_container);
 
+		const status_select = document.createElement("select");
+		status_select.classList.add("status")
+		const automatic_blocked_option = document.createElement("option");
+		automatic_blocked_option.value = "-2";
+		automatic_blocked_option.textContent = "Автоматическая блокировка";
+		automatic_blocked_option.disabled = true;
+		const not_confirmed_option = document.createElement("option");
+		not_confirmed_option.value = "-1";
+		not_confirmed_option.textContent = "Заблокировано";
+		const default_option = document.createElement("option");
+		default_option.value = "1";
+		default_option.textContent = "Не проверено";
+		const confirmed_option = document.createElement("option");
+		confirmed_option.value = "2";
+		confirmed_option.textContent = "Проверено";
+		status_select.appendChild(confirmed_option)
+		status_select.appendChild(default_option)
+		status_select.appendChild(not_confirmed_option)
+		status_select.appendChild(automatic_blocked_option)
+		status_select.value = result.status
+		status_select.placeholder = result.status
+		status_select.addEventListener("change", () => {
+			if (status_select.value != status_select.placeholder){
+				AddData("result", result.result_id, parseInt(status_select.value, 10), "status");
+			} else {
+				RemoveData("result", result.result_id, "status");
+			}
+		});
+		info.appendChild(status_select);
+
 		const comment = document.createElement("textarea");
 		comment.classList.add("result-comment-block");
 		comment.spellcheck = false;
