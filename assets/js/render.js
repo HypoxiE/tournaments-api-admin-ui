@@ -33,7 +33,7 @@ export async function drawTable(tournament) {
 		avatar.className = "avatar";
 		avatar.src = result.avatar_url;
 		avatar.onerror = function() {
-			this.src = 'https://i.imgur.com/9iT2ogu.png';
+			this.src = 'assets/images/default_avatar.png';
 			this.onerror = null;
 		};
 

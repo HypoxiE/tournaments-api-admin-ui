@@ -1,3 +1,5 @@
+import { Init } from "./format_data.js";
+
 function cacheDataSession(key, data, ttl) {
 	const cacheEntry = {
 		timestamp: Date.now(),
@@ -54,7 +56,12 @@ export async function sendData() {
 	})
 	.then(response => response.json())
 	.then(result => {
-		console.log("Успех:", result);
+		if (result.error) {
+			console.log("Ошибка:", result);
+		} else {
+			console.log("Успех:", result);
+			Init()
+		}
 	})
 	.catch(error => {
 		console.error("Ошибка:", error);
