@@ -7,7 +7,7 @@
 .tournament-formula{
   color: var(--text);
   padding: 0px 12px;
-  border: 1px solid var(--borders);
+  border: 1px solid var(--results_bg);
   border-radius: 12px;
   background-color: var(--borders);
   line-height: 2em;
