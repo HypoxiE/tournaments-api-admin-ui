@@ -1,16 +1,37 @@
 import { AddData, RemoveData } from "./format_data.js";
 
-function TextboxListener(type, field, idenfify, key = "value") {
-	if (field.value === field.placeholder){
-		RemoveData(type, idenfify, key);
-	} else if (field.value === "") {
-		field.value = field.placeholder
-		RemoveData(type, idenfify, key);
-	} else {
-		if (field.type == "number") {
-			AddData(type, idenfify, parseInt(field.value, 10), key);
+function TextboxListener({
+    type,
+    field,
+    identify,
+    key = "value",
+    empty_field = false
+}) {
+	if (empty_field === false){
+		if (field.value === field.placeholder){
+			RemoveData(type, identify, key);
+		} else if (field.value === "") {
+			field.value = field.placeholder
+			RemoveData(type, identify, key);
 		} else {
-			AddData(type, idenfify, field.value, key);
+			if (field.type == "number") {
+				AddData(type, identify, parseInt(field.value, 10), key);
+			} else {
+				AddData(type, identify, field.value, key);
+			}
+		}
+	} else {
+		if (field.value === field.placeholder){
+			RemoveData(type, identify, key);
+		} else {
+			if (field.type == "number") {
+				if (field.value === "") {
+					field.value = "0"
+				}
+				AddData(type, identify, parseInt(field.value, 10), key);
+			} else {
+				AddData(type, identify, field.value, key);
+			}
 		}
 	}
 }
@@ -49,7 +70,12 @@ export async function drawTable(tournament) {
 		username.value = result.username;
 		username.placeholder = result.username;
 		username.addEventListener("change", () => {
-			TextboxListener("results", username, result.result_id, "username");
+			TextboxListener({
+				type: "results",
+				field: username,
+				identify: result.result_id,
+				key: "username"
+			});
 		});
 		info.appendChild(username);
 
@@ -68,7 +94,13 @@ export async function drawTable(tournament) {
 		penalty.value = result.penalty;
 		penalty.placeholder = result.penalty;
 		penalty.addEventListener("change", () => {
-			TextboxListener("results", penalty, result.result_id, "penalty");
+			TextboxListener({
+				type: "results",
+				field: penalty,
+				identify: result.result_id,
+				key: "penalty",
+				empty_field: true
+			});
 		});
 		penalty_container.appendChild(penalty);
 		info.appendChild(penalty_container);
@@ -82,7 +114,13 @@ export async function drawTable(tournament) {
 		cost.value = result.cost;
 		cost.placeholder = result.cost;
 		cost.addEventListener("change", () => {
-			TextboxListener("results", cost, result.result_id, "cost");
+			TextboxListener({
+				type: "results",
+				field: cost,
+				identify: result.result_id,
+				key: "cost",
+				empty_field: true
+			});
 		});
 		cost_container.appendChild(cost);
 		info.appendChild(cost_container);
@@ -135,7 +173,13 @@ export async function drawTable(tournament) {
 		steamid.value = result.steam_id;
 		steamid.placeholder = result.steam_id;
 		steamid.addEventListener("change", () => {
-			TextboxListener("results", steamid, result.result_id, "steam_id");
+			TextboxListener({
+				type: "results",
+				field: steamid,
+				identify: result.result_id,
+				key: "steam_id",
+				empty_field: true
+			});
 		});
 		steamid_container.appendChild(steamid)
 		confident_container.appendChild(steamid_container)
@@ -151,7 +195,12 @@ export async function drawTable(tournament) {
 		mail.value = result.mail;
 		mail.placeholder = result.mail;
 		mail.addEventListener("change", () => {
-			TextboxListener("results", mail, result.result_id, "mail");
+			TextboxListener({
+				type: "results",
+				field: mail,
+				identify: result.result_id,
+				key: "mail"
+			});
 		});
 		mail_container.appendChild(mail)
 		confident_container.appendChild(mail_container)
@@ -168,19 +217,12 @@ export async function drawTable(tournament) {
 		ip.value = result.ip;
 		ip.placeholder = result.ip;
 		ip.addEventListener("change", () => {
-			if (ip.value === ip.placeholder){
-				RemoveData("results", result.result_id, "ip");
-			} else if (ip.value === "") {
-				ip.value = ip.placeholder
-				RemoveData("results", data.result_id);
-			} else {
-				AddData("results", result.result_id, ip.value, "ip");
-			}
 		});
-		ip_container.appendChild(ip)
-		confident_container.appendChild(ip_container)
-		confident_info.appendChild(confident_container)
-		info.appendChild(confident_info)
+		ip.disabled = true;
+		ip_container.appendChild(ip);
+		confident_container.appendChild(ip_container);
+		confident_info.appendChild(confident_container);
+		info.appendChild(confident_info);
 
 		const metadata_container = document.createElement("div")
 		const translation_meta = {"comment": "Комментарий", "streams": "Стримы"}
@@ -198,10 +240,15 @@ export async function drawTable(tournament) {
 			metadata.innerHTML = data.value;
 			metadata.placeholder = data.value
 			metadata.addEventListener("change", () => {
-				TextboxListener("metadata", metadata, data.metadata_id);
+				TextboxListener({
+					type: "metadata",
+					field: metadata,
+					identify: data.metadata_id,
+					empty_field: true
+				});
 			});
-			metadata_container.appendChild(metadata)
-			metadata_container.appendChild(document.createElement("br"))
+			metadata_container.appendChild(metadata);
+			metadata_container.appendChild(document.createElement("br"));
 		});
 
 		const metric_container = document.createElement("div")
@@ -225,10 +272,15 @@ export async function drawTable(tournament) {
 			metric.value = data.value;
 			metric.placeholder = data.value;
 			metric.addEventListener("change", () => {
-				TextboxListener("metrics", metric, data.metric_id);
+				TextboxListener({
+					type: "metrics",
+					field: metric,
+					identify: data.metric_id,
+					empty_field: true
+				});
 			});
-			metric_container.appendChild(metric)
-			metric_container.appendChild(document.createElement("br"))
+			metric_container.appendChild(metric);
+			metric_container.appendChild(document.createElement("br"));
 		});
 
 		block.appendChild(avatar);
