@@ -40,7 +40,106 @@ export async function drawTable(tournament) {
 	try {
 
 	const nameDiv = document.getElementById("tournament_name");
-	nameDiv.innerHTML = `${tournament.name}`;
+	nameDiv.classList.add("tournament-name");
+	nameDiv.value = tournament.name;
+	nameDiv.placeholder = tournament.name;
+	nameDiv.addEventListener("change", () => {
+		TextboxListener({
+			type: "tournaments",
+			field: nameDiv,
+			identify: tournament.tournament_id,
+			key: "name"
+		});
+	});
+
+	const tournament_container = document.getElementById("tournament");
+	tournament_container.innerHTML = "";
+
+	const tournament_start_date = document.createElement("input");
+	tournament_start_date.classList.add("timestamp")
+	const tournament_stop_date = document.createElement("input");
+	tournament_stop_date.classList.add("timestamp")
+	tournament_start_date.value = tournament.start_timestamp
+	tournament_start_date.placeholder = tournament.start_timestamp
+	tournament_start_date.type = "number";
+	tournament_start_date.addEventListener("change", () => {
+		TextboxListener({
+			type: "tournaments",
+			field: tournament_start_date,
+			identify: tournament.tournament_id,
+			key: "start_timestamp"
+		});
+	});
+	tournament_stop_date.value = tournament.stop_timestamp
+	tournament_stop_date.placeholder = tournament.stop_timestamp
+	tournament_stop_date.type = "number";
+	tournament_stop_date.addEventListener("change", () => {
+		TextboxListener({
+			type: "tournaments",
+			field: tournament_stop_date,
+			identify: tournament.tournament_id,
+			key: "stop_timestamp"
+		});
+	});
+	const start_date = new Date(tournament.start_timestamp * 1000);
+	const stop_date = new Date(tournament.stop_timestamp * 1000);
+
+	tournament_container.appendChild(tournament_start_date);
+	tournament_container.appendChild(document.createElement("span")).textContent = " - ";
+	tournament_container.appendChild(tournament_stop_date);
+	tournament_container.appendChild(document.createElement("br"));
+	tournament_container.appendChild(document.createElement("span")).textContent = `${start_date.toDateString()} - ${stop_date.toDateString()}`;
+	tournament_container.appendChild(document.createElement("br"));
+	tournament_container.appendChild(document.createElement("br"));
+
+	const tournament_variables = document.createElement("div");
+	tournament_variables.innerHTML = `
+		Используемые переменные: <br><code>
+		${tournament.variables.join("</code>, <code>")}</code><br><br>
+	`
+	tournament_container.appendChild(tournament_variables)
+
+	const tournament_formula = document.createElement("textarea");
+	tournament_formula.value = tournament.formula
+	tournament_formula.placeholder = tournament.formula
+	tournament_formula.classList.add("tournament-formula")
+	tournament_formula.addEventListener("change", () => {
+
+		const regex = new RegExp(`\\b(${tournament.variables.join("|")})\\b`, "gi");
+		const formula = tournament_formula.value.replace(regex, "1");
+		if (!/^[0-9+\-*/().\s]+$/.test(formula)) {
+			tournament_formula.classList.add("error");
+			return;
+		}
+
+		try {
+			// 2. Пробуем вычислить
+			const result = Function(`"use strict"; return (${formula})`)();
+
+			typeof result === "number" && isFinite(result)
+		} catch (e) {
+			tournament_formula.classList.add("error");
+			return;
+		}
+
+		tournament_formula.classList.remove("error");
+
+		TextboxListener({
+			type: "tournaments",
+			field: tournament_formula,
+			identify: tournament.tournament_id,
+			key: "formula"
+		});
+	});
+	tournament_container.appendChild(tournament_formula)
+
+	const tournament_metadata = document.createElement("div");
+	tournament_metadata.innerHTML = `
+		Запрашиваемые метаданные: <br><code>
+		${tournament.metadata.join("</code>, <code>")}</code><br><br>
+	`
+	tournament_container.appendChild(tournament_metadata)
+	
 
 	const container = document.getElementById("leaderboard");
 	container.innerHTML = "";
@@ -60,9 +159,7 @@ export async function drawTable(tournament) {
 
 		const info = document.createElement("div");
 		info.className = "result-info-block";
-		const date = new Date(result.timestamp * 1000);
-		//date.toLocaleString()
-		// Генерация содержимого блока
+		
 		const username = document.createElement("input");
 		username.type = "text";
 		username.spellcheck = false;

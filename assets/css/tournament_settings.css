@@ -1,0 +1,30 @@
+
+.tournament-name {
+	font-weight: bold;
+	font-size: large;
+}
+
+.tournament-formula{
+  color: var(--text);
+  padding: 0px 12px;
+  border: 1px solid var(--borders);
+  border-radius: 12px;
+  background-color: var(--borders);
+  line-height: 2em;
+
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+textarea[class="tournament-formula"]:focus {
+  outline: none;
+  background-color: var(--results_bg);
+}
+textarea::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.timestamp {
+	width: 80px;
+}
